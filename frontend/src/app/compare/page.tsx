@@ -87,7 +87,7 @@ export default function ComparePage() {
                     <>
                       <div>
                         <p className="text-gray-500 uppercase tracking-wider text-xs font-semibold mb-1">Placement Rate</p>
-                        <p className="font-medium text-gray-900">{college.placements[0].placementRate}%</p>
+                        <p className="font-medium text-gray-900">{Math.round(college.placements[0].placementRate)}%</p>
                       </div>
                       <div>
                         <p className="text-gray-500 uppercase tracking-wider text-xs font-semibold mb-1">Highest Package</p>

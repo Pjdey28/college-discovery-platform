@@ -36,7 +36,7 @@ async function main() {
     });
     await prisma.cutoff.create({
   data:{
-    exam:"JEE",
+    exam: faker.helpers.arrayElement(["JEE", "NEET", "GATE"]),
 
     rank:
       faker.number.int({
