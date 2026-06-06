@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import Navbar
 from "../components/Navbar";
-
+import DashboardStat from '../components/DashboardStat';
+import TrendingColleges from "../components/TrendingColleges";
 export default function Home() {
 
   return (
@@ -50,6 +51,26 @@ export default function Home() {
         >
           Explore Colleges
         </Link>
+        <TrendingColleges/>
+        <DashboardStat
+ title="Colleges"
+ value="300+"
+/>
+
+<DashboardStat
+ title="Students"
+ value="50K+"
+/>
+
+<DashboardStat
+ title="Reviews"
+ value="10K+"
+/>
+
+<DashboardStat
+ title="Placement Records"
+ value="100%"
+/>
 
       </main>
     </>

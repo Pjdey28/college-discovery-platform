@@ -48,6 +48,45 @@ async function main() {
       college.id,
   }
 });
+await prisma.placement.create({
+
+  data:{
+
+    highestPackage:
+      faker.number.float({
+        min:8,
+        max:60
+      }),
+
+    averagePackage:
+      faker.number.float({
+        min:4,
+        max:20
+      }),
+
+    placementRate:
+      faker.number.float({
+        min:60,
+        max:100
+      }),
+
+    recruiters:
+      [
+        "Google",
+        "Microsoft",
+        "Amazon",
+        "Adobe",
+        "Oracle",
+      ]
+      .sort(
+        ()=>0.5-Math.random()
+      )
+      .slice(0,3),
+
+    collegeId:
+      college.id
+  }
+});
   }
 }
 
@@ -62,3 +101,4 @@ main()
 
     process.exit(1);
   });
+  

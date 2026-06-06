@@ -9,11 +9,16 @@ import compareRoutes from "./routes/compare.routes";
 import predictorRoutes from "./routes/predictor.routes";
 import savedRoutes from "./routes/saved.routes";
 import discussionRoutes from "./routes/discussion.routes";
+import reviewRoutes from "./routes/review.routes"
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin:
+      process.env.FRONTEND_URL,
+    credentials:true,
+  }));
 
 app.use(express.json());
 
@@ -50,6 +55,10 @@ app.use(
 app.use(
  "/api/discussions",
  discussionRoutes
+);
+app.use(
+ "/api/reviews",
+ reviewRoutes
 );
 const PORT = process.env.PORT || 5000;
 

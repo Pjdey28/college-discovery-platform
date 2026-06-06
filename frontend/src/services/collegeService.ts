@@ -1,8 +1,15 @@
 import api from "./axios";
 
 export const getColleges = async (
-  search?: string,
-  state?: string
+  search?:string,
+
+ state?:string,
+
+ minFees?:number,
+
+ maxFees?:number,
+
+ rating?:number
 ) => {
 
   const res = await api.get(
@@ -11,6 +18,9 @@ export const getColleges = async (
       params: {
         search,
         state,
+        minFees,
+        maxFees,
+        rating
       },
     }
   );
@@ -26,3 +36,13 @@ export const getCollegeById =
 
     return res.data;
   };
+  export const getTrendingColleges =
+async ()=>{
+
+  const res =
+    await api.get(
+      "/colleges/trending"
+    );
+
+  return res.data;
+};

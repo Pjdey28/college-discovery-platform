@@ -19,6 +19,8 @@ model User {
 
  discussions Discussion[]
 
+ reviews Review[]
+
  createdAt DateTime @default(now())
 }
 
@@ -78,6 +80,7 @@ model Placement {
  averagePackage Float
 
  highestPackage Float
+ placementRate Float
 
  recruiters String[]
 
@@ -92,10 +95,14 @@ model Review {
  rating Float
 
  comment String
+userId String
+
+ user User @relation(fields:[userId],references:[id])
 
  collegeId String
 
  college College @relation(fields:[collegeId],references:[id])
+ createdAt DateTime @default(now())
 }
 
 model Cutoff {

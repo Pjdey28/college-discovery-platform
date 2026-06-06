@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   useQuery,
 } from "@tanstack/react-query";
-
+import ReviewSection from "../../components/ReviewSection";
 import CollegeCard
 from "../../components/CollegeCard";
 
@@ -24,6 +24,19 @@ export default function CollegesPage() {
   const [stateFilter,
     setStateFilter] =
     useState("");
+const [minFees,setMinFees]=useState("");
+
+const [maxFees,setMaxFees]=useState("");
+
+const [rating,setRating]=useState("");
+const [recentSearches,setRecentSearches]=useState<string[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("recentSearches");
+    if (saved) {
+      setRecentSearches(JSON.parse(saved));
+    }
+  }, []);
 
   const { data, isLoading } =
     useQuery({
@@ -31,14 +44,55 @@ export default function CollegesPage() {
         "colleges",
         search,
         stateFilter,
+        minFees,
+        maxFees,
+        rating
       ],
 
-      queryFn: () =>
-        getColleges(
-          search,
-          stateFilter
-        ),
+     queryFn:()=>
+
+ getColleges(
+
+  search,
+
+  stateFilter,
+
+  Number(minFees),
+
+  Number(maxFees),
+
+  Number(rating)
+
+ )
     });
+const saveSearch =
+(value:string)=>{
+
+ const updated =
+
+ [
+  value,
+
+  ...recentSearches
+   .filter(
+    item =>
+    item !== value
+   )
+ ]
+
+ .slice(0,5);
+
+ setRecentSearches(
+  updated
+ );
+
+ localStorage.setItem(
+  "recentSearches",
+  JSON.stringify(
+   updated
+  )
+ );
+};
 
   return (
     <>
@@ -85,6 +139,50 @@ export default function CollegesPage() {
             w-full
           "
           />
+          <input
+placeholder="Min Fees"
+value={minFees}
+onChange={(e)=>
+ setMinFees(
+  e.target.value
+ )
+}
+className="
+border
+p-2
+rounded
+"
+/>
+
+<input
+placeholder="Max Fees"
+value={maxFees}
+onChange={(e)=>
+ setMaxFees(
+  e.target.value
+ )
+}
+className="
+border
+p-2
+rounded
+"
+/>
+
+<input
+placeholder="Min Rating"
+value={rating}
+onChange={(e)=>
+ setRating(
+  e.target.value
+ )
+}
+className="
+border
+p-2
+rounded
+"
+/>
 
           <input
             value={stateFilter}
@@ -101,6 +199,48 @@ export default function CollegesPage() {
           "
           />
 
+        </div>
+        <button
+onClick={()=>
+ saveSearch(search)
+}
+className="
+bg-black
+text-white
+px-4
+rounded
+"
+>
+Save Search
+</button>
+
+        <div
+          className="
+          flex
+          gap-2
+          flex-wrap
+          mb-4
+          mt-4
+          "
+        >
+          {recentSearches.map(
+            (item) => (
+              <button
+                key={item}
+                onClick={() =>
+                  setSearch(item)
+                }
+                className="
+                border
+                px-3
+                py-1
+                rounded
+                "
+              >
+                {item}
+              </button>
+            )
+          )}
         </div>
 
         {isLoading &&
@@ -122,6 +262,9 @@ export default function CollegesPage() {
             )
           )}
         </div>
+        <ReviewSection
+ collegeId={data.id}
+/>
 
       </div>
     </>

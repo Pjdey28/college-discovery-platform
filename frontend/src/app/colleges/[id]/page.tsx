@@ -11,7 +11,7 @@ from "../../../components/Navbar";
 import {
   getCollegeById,
 } from "../../../services/collegeService";
-
+import PlacementStats from "../../../components/PlacementStats";
 export default function CollegeDetail() {
 
   const params = useParams();
@@ -66,7 +66,11 @@ export default function CollegeDetail() {
             Rating:
             {data.rating}
           </p>
-
+        <PlacementStats
+ placement={
+  data.placement
+ }
+/>
         </div>
 
       </div>

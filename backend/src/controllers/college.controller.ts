@@ -16,30 +16,48 @@ export const getColleges =
 
     const colleges =
       await prisma.college.findMany({
-        where: {
+        where:{
 
-          name: {
-            contains:
-              search as string,
-            mode:
-              "insensitive",
-          },
+  name:{
+    contains:
+    search as string,
 
-          state: state
-            ? String(state)
-            : undefined,
+    mode:
+    "insensitive"
+  },
 
-          fees: {
-            gte: minFees
-              ? Number(minFees)
-              : undefined,
+  state:
+  state
+  ? String(state)
+  : undefined,
 
-            lte: maxFees
-              ? Number(maxFees)
-              : undefined,
-          },
-        },
+  fees:{
 
+    gte:
+    req.query.minFees
+    ? Number(
+      req.query.minFees
+    )
+    : undefined,
+
+    lte:
+    req.query.maxFees
+    ? Number(
+      req.query.maxFees
+    )
+    : undefined
+  },
+
+  rating:{
+
+    gte:
+    req.query.rating
+    ? Number(
+      req.query.rating
+    )
+    : undefined
+  }
+},
         take: 20,
       });
 
@@ -60,6 +78,7 @@ export const getCollegeById = async (
         courses: true,
         reviews: true,
         placements: true,
+        cutoffs:true
       },
     });
 
@@ -70,4 +89,22 @@ export const getCollegeById = async (
   }
 
   res.json(college);
+};
+export const getTrendingColleges =
+async (
+  req: Request,
+  res: Response
+) => {
+
+  const colleges =
+    await prisma.college.findMany({
+
+      orderBy:{
+        rating:"desc"
+      },
+
+      take:6
+    });
+
+  res.json(colleges);
 };
