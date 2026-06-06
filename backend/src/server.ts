@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes";
+import collegeRoutes from "./routes/college.routes";
+import compareRoutes from "./routes/compare.routes";
+import predictorRoutes from "./routes/predictor.routes";
 dotenv.config();
 
 const app = express();
@@ -25,6 +28,18 @@ app.get("/", (_, res) => {
 app.use(
   "/api/auth",
   authRoutes
+);
+app.use(
+  "/api/colleges",
+  collegeRoutes
+);
+app.use(
+  "/api/compare",
+  compareRoutes
+);
+app.use(
+  "/api/predictor",
+  predictorRoutes
 );
 const PORT = process.env.PORT || 5000;
 

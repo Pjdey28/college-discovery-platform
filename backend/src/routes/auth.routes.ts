@@ -4,7 +4,11 @@ import {
   login,
   register,
 } from "../controllers/auth.controller";
+import { protect }
+from "../middleware/auth.middleware";
 
+import { me }
+from "../controllers/auth.controller";
 const router = Router();
 
 router.post(
@@ -15,6 +19,12 @@ router.post(
 router.post(
   "/login",
   login
+);
+
+router.get(
+  "/me",
+  protect,
+  me
 );
 
 export default router;

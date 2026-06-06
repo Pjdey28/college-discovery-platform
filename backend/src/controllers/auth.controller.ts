@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 
 import prisma from "../config/db";
 import { generateToken } from "../utils/jwt";
-
+import { AuthRequest }
+from "../middleware/auth.middleware";
 export const register = async (
   req: Request,
   res: Response
@@ -93,4 +94,18 @@ export const login = async (
       message: "Login failed",
     });
   }
+};
+export const me = async (
+  req: AuthRequest,
+  res: Response
+) => {
+
+  const user =
+    await prisma.user.findUnique({
+      where:{
+        id:req.userId
+      }
+    });
+
+  res.json(user);
 };

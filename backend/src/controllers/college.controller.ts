@@ -45,3 +45,29 @@ export const getColleges =
 
     res.json(colleges);
   };
+export const getCollegeById = async (
+  req: Request,
+  res: Response
+) => {
+
+  const { id } = req.params;
+
+  const college =
+    await prisma.college.findUnique({
+      where: { id:id as string },
+
+      include: {
+        courses: true,
+        reviews: true,
+        placements: true,
+      },
+    });
+
+  if (!college) {
+    return res.status(404).json({
+      message: "College not found",
+    });
+  }
+
+  res.json(college);
+};

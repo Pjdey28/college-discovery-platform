@@ -5,7 +5,7 @@ async function main() {
 
   for (let i = 0; i < 300; i++) {
 
-    await prisma.college.create({
+    const college = await prisma.college.create({
       data: {
         name:
           faker.company.name() +
@@ -34,6 +34,20 @@ async function main() {
           faker.lorem.paragraph(),
       },
     });
+    await prisma.cutoff.create({
+  data:{
+    exam:"JEE",
+
+    rank:
+      faker.number.int({
+        min:1000,
+        max:100000
+      }),
+
+    collegeId:
+      college.id,
+  }
+});
   }
 }
 
