@@ -7,6 +7,8 @@ import authRoutes from "./routes/auth.routes";
 import collegeRoutes from "./routes/college.routes";
 import compareRoutes from "./routes/compare.routes";
 import predictorRoutes from "./routes/predictor.routes";
+import savedRoutes from "./routes/saved.routes";
+import discussionRoutes from "./routes/discussion.routes";
 dotenv.config();
 
 const app = express();
@@ -40,6 +42,14 @@ app.use(
 app.use(
   "/api/predictor",
   predictorRoutes
+);
+app.use(
+  "/api/saved",
+  savedRoutes
+);
+app.use(
+ "/api/discussions",
+ discussionRoutes
 );
 const PORT = process.env.PORT || 5000;
 

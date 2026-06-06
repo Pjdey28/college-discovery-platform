@@ -1,92 +1,154 @@
 "use client";
 
-import { useState } from "react";
-import api from "../../services/axios";
+import Navbar
+from "../../components/Navbar";
 
-export default function ComparePage() {
+import {
+ useCompareStore
+}
+from "../../store/compareStore";
 
-  const [ids, setIds] =
-    useState("");
+export default function ComparePage(){
 
-  const [data, setData] =
-    useState([]);
+ const {
+  colleges,
+  removeCollege,
+  clearCompare
+ } =
+ useCompareStore();
 
-  const compare = async () => {
+ return(
+  <>
+   <Navbar/>
 
-    const res =
-      await api.post(
-        "/compare",
-        {
-          ids:
-            ids
-            .split(",")
-            .map(
-              (i) =>
-                i.trim()
-            ),
-        }
-      );
+   <div
+   className="
+   max-w-7xl
+   mx-auto
+   p-6
+   "
+   >
 
-    setData(res.data);
-  };
+    <div
+    className="
+    flex
+    justify-between
+    mb-8
+    "
+    >
 
-  return (
-    <div className="p-6">
-
-      <h1 className="text-4xl mb-4">
+      <h1
+      className="
+      text-4xl
+      font-bold
+      "
+      >
         Compare Colleges
       </h1>
 
-      <input
-        className="border p-2"
-        placeholder="
-        id1,id2,id3
-        "
-        value={ids}
-        onChange={(e)=>
-          setIds(
-            e.target.value
-          )
-        }
-      />
-
       <button
-        className="
-        bg-blue-500
-        text-white
-        p-2
-        ml-2
-        "
-        onClick={compare}
+      onClick={
+       clearCompare
+      }
+      className="
+      bg-red-600
+      text-white
+      px-4
+      py-2
+      rounded
+      "
       >
-        Compare
+       Clear
       </button>
 
-      <div className="mt-6">
+    </div>
 
-        {data.map((c:any)=>(
-          <div
-            key={c.id}
+    {
+      colleges.length===0
+      &&
+      (
+        <p>
+          No colleges selected.
+        </p>
+      )
+    }
+
+    <div
+    className="
+    grid
+    md:grid-cols-3
+    gap-6
+    "
+    >
+
+      {
+        colleges.map(
+          (college)=>(
+            <div
+            key={college.id}
+
             className="
             border
-            p-4
-            mb-2
+            rounded-xl
+            p-6
             "
-          >
-            <h2>
-              {c.name}
-            </h2>
+            >
 
-            <p>
-              ₹{c.fees}
-            </p>
+              <h2
+              className="
+              text-2xl
+              font-bold
+              "
+              >
+                {college.name}
+              </h2>
 
-            <p>
-              {c.rating}
-            </p>
-          </div>
-        ))}
-      </div>
+              <p>
+                {college.location}
+              </p>
+
+              <p>
+                {college.state}
+              </p>
+
+              <p>
+                Fees:
+                ₹
+                {college.fees}
+              </p>
+
+              <p>
+                Rating:
+                {college.rating}
+              </p>
+
+              <button
+              onClick={()=>
+               removeCollege(
+                college.id
+               )
+              }
+
+              className="
+              mt-4
+              bg-red-500
+              text-white
+              px-3
+              py-1
+              rounded
+              "
+              >
+                Remove
+              </button>
+
+            </div>
+          )
+        )
+      }
+
     </div>
-  );
+
+   </div>
+  </>
+ )
 }

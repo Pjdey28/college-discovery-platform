@@ -33,6 +33,16 @@ export default function Navbar() {
         <Link href="/predictor">
           Predictor
         </Link>
+        <Link href="/saved">
+  Saved
+</Link>
+
+<Link href="/login">
+  Login
+</Link>
+<Link href="/discussions">
+  Discussions
+</Link>
 
       </div>
     </nav>

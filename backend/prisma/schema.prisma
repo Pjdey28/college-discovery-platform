@@ -133,5 +133,19 @@ model Discussion {
 
  user User @relation(fields:[userId],references:[id])
 
+ answers Answer[]
+
  createdAt DateTime @default(now())
+}
+model Answer {
+
+  id String @id @default(cuid())
+
+  content String
+
+  discussionId String
+
+  discussion Discussion @relation(fields:[discussionId],references:[id])
+
+  createdAt DateTime @default(now())
 }
