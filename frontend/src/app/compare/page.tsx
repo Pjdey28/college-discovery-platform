@@ -82,6 +82,19 @@ export default function ComparePage() {
                       {college.rating} / 5.0
                     </div>
                   </div>
+                  
+                  {college.placements && college.placements.length > 0 && (
+                    <>
+                      <div>
+                        <p className="text-gray-500 uppercase tracking-wider text-xs font-semibold mb-1">Placement Rate</p>
+                        <p className="font-medium text-gray-900">{college.placements[0].placementRate}%</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 uppercase tracking-wider text-xs font-semibold mb-1">Highest Package</p>
+                        <p className="font-medium text-gray-900">₹{college.placements[0].highestPackage.toLocaleString()}</p>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-gray-100">

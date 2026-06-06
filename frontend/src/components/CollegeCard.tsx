@@ -10,6 +10,7 @@ export default function CollegeCard({ college }: { college: College }) {
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     try {
       await api.post("/saved", { collegeId: college.id });
       toast.success("College saved successfully!");
@@ -20,6 +21,7 @@ export default function CollegeCard({ college }: { college: College }) {
 
   const handleCompare = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     addCollege(college);
     toast.success("Added to compare!");
   };
