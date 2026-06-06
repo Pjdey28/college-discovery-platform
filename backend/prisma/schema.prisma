@@ -1,0 +1,137 @@
+generator client {
+ provider = "prisma-client-js"
+}
+
+datasource db {
+ provider = "postgresql"
+}
+
+model User {
+ id        String @id @default(cuid())
+
+ name      String
+
+ email     String @unique
+
+ password  String
+
+ savedColleges SavedCollege[]
+
+ discussions Discussion[]
+
+ createdAt DateTime @default(now())
+}
+
+model College {
+ id String @id @default(cuid())
+
+ name String
+
+ location String
+
+ state String
+
+ fees Int
+
+ rating Float
+
+ description String
+
+ image String?
+
+ courses Course[]
+
+ reviews Review[]
+
+ placements Placement[]
+
+ cutoffs Cutoff[]
+
+ savedColleges SavedCollege[]
+
+ createdAt DateTime @default(now())
+
+ @@index([name])
+
+ @@index([location])
+
+ @@index([rating])
+}
+
+model Course {
+ id String @id @default(cuid())
+
+ name String
+
+ duration String
+
+ fees Int
+
+ collegeId String
+
+ college College @relation(fields:[collegeId],references:[id])
+}
+
+model Placement {
+ id String @id @default(cuid())
+
+ averagePackage Float
+
+ highestPackage Float
+
+ recruiters String[]
+
+ collegeId String
+
+ college College @relation(fields:[collegeId],references:[id])
+}
+
+model Review {
+ id String @id @default(cuid())
+
+ rating Float
+
+ comment String
+
+ collegeId String
+
+ college College @relation(fields:[collegeId],references:[id])
+}
+
+model Cutoff {
+ id String @id @default(cuid())
+
+ exam String
+
+ rank Int
+
+ collegeId String
+
+ college College @relation(fields:[collegeId],references:[id])
+}
+
+model SavedCollege {
+ id String @id @default(cuid())
+
+ userId String
+
+ collegeId String
+
+ user User @relation(fields:[userId],references:[id])
+
+ college College @relation(fields:[collegeId],references:[id])
+}
+
+model Discussion {
+ id String @id @default(cuid())
+
+ title String
+
+ content String
+
+ userId String
+
+ user User @relation(fields:[userId],references:[id])
+
+ createdAt DateTime @default(now())
+}
