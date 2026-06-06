@@ -1,3 +1,11 @@
+export interface Placement {
+  id: string;
+  averagePackage: number;
+  highestPackage: number;
+  placementRate: number;
+  recruiters: string[];
+}
+
 export interface College {
   id: string;
   name: string;
@@ -7,4 +15,5 @@ export interface College {
   rating: number;
   description: string;
   image?: string;
+  placements?: Placement[];
 }

@@ -56,6 +56,9 @@ export const getColleges =
   }
 },
         take: 100,
+        include: {
+          placements: true
+        }
       });
 
     res.json(colleges);
@@ -100,7 +103,10 @@ async (
         rating:"desc"
       },
 
-      take:6
+      take:6,
+      include: {
+        placements: true
+      }
     });
 
   res.json(colleges);
