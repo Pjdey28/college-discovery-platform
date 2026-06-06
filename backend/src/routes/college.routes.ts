@@ -13,10 +13,11 @@ router.get(
   getColleges
 );
 
-router.get("/:id", getCollegeById);
 router.get(
   "/trending",
   getTrendingColleges
 );
+
+router.get("/:id", getCollegeById);
 
 export default router;

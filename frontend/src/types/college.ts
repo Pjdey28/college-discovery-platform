@@ -6,4 +6,5 @@ export interface College {
   fees: number;
   rating: number;
   description: string;
+  image?: string;
 }

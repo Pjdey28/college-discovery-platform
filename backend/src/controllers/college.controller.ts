@@ -18,13 +18,10 @@ export const getColleges =
       await prisma.college.findMany({
         where:{
 
-  name:{
-    contains:
-    search as string,
-
-    mode:
-    "insensitive"
-  },
+  name: search ? {
+    contains: String(search),
+    mode: "insensitive"
+  } : undefined,
 
   state:
   state
@@ -58,7 +55,7 @@ export const getColleges =
     : undefined
   }
 },
-        take: 20,
+        take: 100,
       });
 
     res.json(colleges);

@@ -9,7 +9,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="bg-gray-50 text-gray-900 antialiased min-h-screen flex flex-col">
         <Providers>
           {children}
         </Providers>
